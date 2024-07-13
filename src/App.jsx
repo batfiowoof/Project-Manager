@@ -1,12 +1,13 @@
 import NewProject from "./components/NewProject";
 import NotSelected from "./components/NotSelected";
 import Sidebar from "./components/Sidebar";
+import Selected from "./components/Selected";
 
 import { useState } from "react";
 
 function App() {
   const [projectsState, setProjectsState] = useState({
-    selectedProject: undefined,
+    selectedProjectId: undefined,
     projects: [],
   });
 
@@ -14,21 +15,22 @@ function App() {
     setProjectsState((prevState) => {
       return {
         ...prevState,
-        selectedProject: null,
+        selectedProjectId: null,
       };
     });
   }
 
   function createProject(projectData) {
     setProjectsState((prevState) => {
+      const projectId = Math.random();
       const newProject = {
         ...projectData,
-        id: Math.random(),
+        id: projectId,
       };
 
       return {
         ...prevState,
-        selectedProject: undefined,
+        selectedProjectId: undefined,
         projects: [...prevState.projects, newProject],
       };
     });
@@ -38,21 +40,34 @@ function App() {
     setProjectsState((prevState) => {
       return {
         ...prevState,
-        selectedProject: undefined,
+        selectedProjectId: undefined,
       };
     });
   }
 
-  let content;
+  function selectProject(id) {
+    setProjectsState((prevState) => {
+      return {
+        ...prevState,
+        selectedProjectId: id,
+      };
+    });
+  }
 
-  if (projectsState.selectedProject === null) {
+  const selectedProject = projectsState.projects.find(
+    (project) => project.id === projectsState.selectedProjectId
+  );
+
+  let content = <Selected project={selectedProject} />;
+
+  if (projectsState.selectedProjectId === null) {
     content = (
       <NewProject
         onAdd={createProject}
         onCancelProjectCreation={cancelProjectCreation}
       ></NewProject>
     );
-  } else if (projectsState.selectedProject === undefined) {
+  } else if (projectsState.selectedProjectId === undefined) {
     content = <NotSelected onAddProject={handleAddProject}></NotSelected>;
   }
 
@@ -60,6 +75,7 @@ function App() {
     <main className="h-screen my-8 flex gap-8">
       <Sidebar
         onAddProject={handleAddProject}
+        onSelectProject={selectProject}
         projects={projectsState.projects}
       ></Sidebar>
       {content}
