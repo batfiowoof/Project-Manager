@@ -10,10 +10,27 @@ function App() {
     projects: [],
   });
 
+  function handleAddProject() {
+    setProjectsState((prevState) => {
+      return {
+        ...prevState,
+        selectedProject: null,
+      };
+    });
+  }
+
+  let content;
+
+  if (projectsState.selectedProject === null) {
+    content = <NewProject></NewProject>;
+  } else if (projectsState.selectedProject === undefined) {
+    content = <NotSelected onAddProject={handleAddProject}></NotSelected>;
+  }
+
   return (
     <main className="h-screen my-8 flex gap-8">
-      <Sidebar></Sidebar>
-      <NotSelected></NotSelected>
+      <Sidebar onAddProject={handleAddProject}></Sidebar>
+      {content}
     </main>
   );
 }
