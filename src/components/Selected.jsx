@@ -1,9 +1,13 @@
-export default function Selected({ project }) {
+export default function Selected({ project, onDelete }) {
   const formattedDate = new Date(project.deadline).toLocaleDateString("en-US", {
     year: "numeric",
     month: "short",
     day: "numeric",
   });
+
+  function handleDelete() {
+    onDelete(project.id);
+  }
 
   return (
     <div className="w-[35rem] mt-16">
@@ -12,7 +16,10 @@ export default function Selected({ project }) {
           <h1 className="text-3xl font-bold text-stone-600 mb-2">
             {project.title}
           </h1>
-          <button className="text-stone-600 hover:text-stone-950">
+          <button
+            onClick={handleDelete}
+            className="text-stone-600 hover:text-stone-950"
+          >
             Delete
           </button>
         </div>

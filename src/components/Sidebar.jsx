@@ -1,13 +1,22 @@
 import Button from "./Button";
 
-export default function Sidebar({ onAddProject, onSelectProject, projects }) {
+export default function Sidebar({
+  onAddProject,
+  onSelectProject,
+  onClearProjects,
+  projects,
+}) {
   return (
     <aside className="w-1/3 px-8 py-16 bg-gray-800 text-white p-5 md:w-72 rounded-r-xl">
-      <h2 className="mb-8 font-bold uppercase md:texxt-xl text-stone-200">
-        Your Projects
-      </h2>
+      <button>
+        <h2 className="mb-8 font-bold uppercase md:texxt-xl text-stone-200">
+          Your Projects
+        </h2>
+      </button>
+
       <div>
         <Button onClick={onAddProject}>+ Add Project</Button>
+        <Button onClick={onClearProjects}>- Clear Projects</Button>
       </div>
       <ul>
         {projects.map((project) => {
