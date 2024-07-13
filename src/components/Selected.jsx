@@ -1,4 +1,12 @@
-export default function Selected({ project, onDelete }) {
+import Tasks from "./Tasks";
+
+export default function Selected({
+  project,
+  onDelete,
+  onTaskAdd,
+  tasks,
+  onDeleteTask,
+}) {
   const formattedDate = new Date(project.deadline).toLocaleDateString("en-US", {
     year: "numeric",
     month: "short",
@@ -7,6 +15,10 @@ export default function Selected({ project, onDelete }) {
 
   function handleDelete() {
     onDelete(project.id);
+  }
+
+  function addTask() {
+    onTaskAdd();
   }
 
   return (
@@ -28,7 +40,11 @@ export default function Selected({ project, onDelete }) {
           {project.description}
         </p>
       </header>
-      TASKS
+      <button onClick={addTask}>
+        <h2 className="text-l font-bold text-stone-500 my-2">Add task</h2>
+      </button>
+
+      <Tasks onAdd={onTaskAdd} onDelete={onDeleteTask} tasks={tasks} />
     </div>
   );
 }

@@ -44,7 +44,7 @@ export default function NewProject({ onAdd, onCancelProjectCreation }) {
         </h2>
         <p>No value entered. Please fill the input fields!</p>
       </Modal>
-      <div className="w-[35rem] mt-16 bg-gray-400 rounded-xl">
+      <div className="w-[35rem] mx-[15rem] bg-gray-400 rounded-xl">
         <h2 className="flex justify-center mt-5 font-bold uppercase md:texxt-x ">
           Add a Project
         </h2>
